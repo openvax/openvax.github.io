@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>OpenVax</title>
-<meta name="description" content="Open-source Python tools for designing personalized cancer vaccines: Vaxrank, Isovar, Varcode, mhctools, MHCflurry, PyEnsembl.">
+<meta name="description" content="Open-source software for designing personalized cancer vaccines: Vaxrank, Isovar, Varcode, mhctools, MHCflurry, PyEnsembl.">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cpath d='M4 16h24' stroke='%230e2a3f' stroke-width='2.5'/%3E%3Ccircle cx='5' cy='16' r='4' fill='%230e2a3f'/%3E%3Ccircle cx='27' cy='16' r='4' fill='%230e2a3f'/%3E%3Ccircle cx='16' cy='16' r='6' fill='%23c2255c'/%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -47,10 +47,15 @@
   }
   a { color: var(--teal); text-decoration: none; }
   a:hover { text-decoration: underline; text-underline-offset: 0.15em; }
+  p:not(.meta):not(.links) a {
+    text-decoration: underline; text-underline-offset: 0.18em; text-decoration-thickness: 1px;
+    text-decoration-color: color-mix(in srgb, var(--teal) 40%, transparent);
+  }
+  p:not(.meta):not(.links) a:hover { text-decoration-color: currentColor; }
   a:focus-visible { outline: 2px solid var(--teal); outline-offset: 2px; border-radius: 2px; }
   code { font-family: var(--mono); font-size: 0.9em; }
   h1, h2, h3, h4 { color: var(--navy); font-weight: 600; line-height: 1.2; }
-  h2 { font-size: 1.75rem; margin: 0 0 1rem; }
+  h2 { font-size: 2.1rem; font-weight: 400; letter-spacing: -0.01em; margin: 0 0 1rem; }
   h3 { font-size: 1.125rem; margin: 2.5rem 0 1rem; }
   p { margin: 0 0 1rem; }
   .wrap { max-width: var(--wide); margin: 0 auto; padding: 0 1.5rem; }
@@ -74,7 +79,7 @@
 
   /* Hero */
   .hero { display: grid; grid-template-columns: 1fr; gap: 3rem; padding-top: 4rem; padding-bottom: 4rem; align-items: center; }
-  .hero h1 { font-size: clamp(2rem, 4vw, 2.6rem); line-height: 1.15; letter-spacing: -0.01em; margin: 0 0 1.25rem; }
+  .hero h1 { font-size: clamp(2.1rem, 4.4vw, 2.9rem); font-weight: 400; line-height: 1.12; letter-spacing: -0.015em; margin: 0 0 1.25rem; }
   .lede { font-size: 1.2rem; color: var(--ink); max-width: 36rem; }
   .install {
     display: inline-block; margin: 0.5rem 0 1.5rem;
@@ -120,12 +125,6 @@
     content: "↓"; position: absolute; left: 50%; bottom: -1.5rem; transform: translateX(-50%);
     color: var(--muted); font-size: 0.95rem;
   }
-  .foundation {
-    margin: 0; padding: 0.7rem 1rem; border-radius: 6px; text-align: center;
-    background: color-mix(in srgb, var(--teal) 9%, var(--paper));
-  }
-  .foundation a { font-weight: 600; }
-  .foundation .cap { margin-top: 0.1rem; }
 
   /* Packages */
   .pkgs { display: grid; grid-template-columns: 1fr; gap: 1rem; }
@@ -144,7 +143,7 @@
   .trial { display: grid; grid-template-columns: 1fr; gap: 0.75rem 2.5rem; padding: 1.75rem 0; border-bottom: 1px solid var(--rule); }
   .trial h4 { margin: 0 0 0.4rem; font-size: 1.1rem; }
   .trial .meta { font-size: 0.92rem; color: var(--muted); margin: 0; line-height: 1.7; }
-  .trial .meta a { font-family: var(--mono); font-size: 0.88rem; }
+  .trial .meta a.nct { font-family: var(--mono); font-size: 0.88rem; }
   .status { display: inline-block; font-size: 0.8rem; font-weight: 500; padding: 0.05rem 0.55rem; border-radius: 999px; margin-left: 0.4rem; white-space: nowrap; }
   .status.done { background: color-mix(in srgb, var(--navy) 10%, transparent); color: var(--navy); }
   .status.active { background: color-mix(in srgb, #e67700 16%, transparent); color: #a35400; }
@@ -183,7 +182,6 @@
     .hero { grid-template-columns: 1fr 1.05fr; gap: 4rem; padding-top: 5rem; padding-bottom: 5rem; }
     .pipe { grid-template-columns: repeat(6, 1fr); column-gap: 2rem; row-gap: 1.25rem; max-width: none; }
     .steps li:not(:last-child)::after { content: "→"; left: auto; bottom: auto; right: -1.45rem; top: 1.7rem; transform: translateY(-50%); }
-    .foundation { grid-column: 2 / 6; }
     .trial { grid-template-columns: 17rem 1fr; }
   }
   @media (max-width: 40rem) {
@@ -218,26 +216,26 @@
 
 <section class="hero wrap">
   <div>
-    <h1>Python tools for designing personalized cancer vaccines</h1>
-    <p class="lede">OpenVax finds the mutations in a patient's tumor that T cells could recognize, and chooses which of them to put in a vaccine. Vaccines designed with it have been given to patients in clinical trials.</p>
+    <h1>Software for designing personalized cancer vaccines</h1>
+    <p class="lede">OpenVax is a collection of open-source Python libraries and command-line tools for finding the mutations in a patient's tumor that T cells could recognize, and choosing which of them to put in a vaccine. Vaccines designed with these tools have been given to patients in clinical trials.</p>
     <div class="install"><span class="prompt">$</span>pip install vaxrank</div>
-    <p class="note">The libraries are maintained, and OpenVax 2 is being developed, at the <a href="https://pirl.unc.edu/">Personalized Immunotherapy Research Lab (PIRL)</a> at UNC Chapel Hill.</p>
+    <p class="note">The libraries are maintained at the <a href="https://pirl.unc.edu/">Personalized Immunotherapy Research Lab (PIRL)</a> at UNC Chapel Hill.</p>
   </div>
 
   <figure class="peptide" aria-label="Example vaccine peptide spanning the KRAS G12D mutation">
     <div class="seq" aria-hidden="true">
       <span class="n" style="grid-column:1">1</span><span class="n" style="grid-column:12">12</span><span class="n" style="grid-column:25">25</span>
       <span class="r">M</span><span class="r">T</span><span class="r">E</span><span class="r">Y</span><span class="r">K</span><span class="r">L</span><span class="r">V</span><span class="r lig">V</span><span class="r lig">V</span><span class="r lig">G</span><span class="r lig">A</span><span class="r lig mut">D</span><span class="r lig">G</span><span class="r lig">V</span><span class="r lig">G</span><span class="r lig">K</span><span class="r">S</span><span class="r">A</span><span class="r">L</span><span class="r">T</span><span class="r">I</span><span class="r">Q</span><span class="r">L</span><span class="r">I</span><span class="r">Q</span>
-      <span class="tag">VVGADGVGK, presented by HLA-A*11:01</span>
+      <span class="tag">HLA-A*11:01 epitope</span>
     </div>
-    <figcaption>What a vaccine peptide looks like: the first 25 amino acids of KRAS, with the cancer mutation G12D shown in <b>magenta</b>. Inside it is a 9-residue fragment the patient's HLA molecules can display to T cells. Vaxrank finds and ranks peptides like this for each patient.</figcaption>
+    <figcaption>A 25-residue vaccine peptide from KRAS spanning the G12D mutation (<b>magenta</b>). The underlined 9-mer, VVGADGVGK, is presented to T cells by HLA-A*11:01. Vaxrank picks peptides like this for each patient.</figcaption>
   </figure>
 </section>
 
 <section class="block" id="software">
   <div class="wrap">
-    <h2>How the pieces fit</h2>
-    <p class="prose">Each step is a separate package you can use on its own.</p>
+    <h2>Software</h2>
+    <p class="prose">Each step below is a separate package that can be used on its own.</p>
     <div class="pipe">
       <ol class="steps">
         <li class="io"><span class="node">Patient data</span><span class="cap">variants, tumor RNA, HLA type</span></li>
@@ -247,7 +245,6 @@
         <li><a class="node" href="#vaxrank">Vaxrank</a><span class="cap">ranked vaccine peptides</span></li>
         <li class="io"><span class="node">Vaccine</span><span class="cap">peptides or mRNA</span></li>
       </ol>
-      <p class="foundation"><a href="#pyensembl">PyEnsembl</a><span class="cap">genome annotation underneath every step</span></p>
     </div>
 
     <h3>Vaccine design</h3>
@@ -260,7 +257,7 @@
       </article>
       <article class="pkg" id="isovar">
         <h4><a href="https://github.com/openvax/isovar">Isovar</a></h4>
-        <p>Works out the mutant protein the tumor actually makes by assembling the RNA reads that cover each mutation. Nearby germline or somatic variants and splicing changes come from the reads, not from the reference genome.</p>
+        <p>Determines the mutant protein sequence the tumor expresses by assembling the RNA reads that cover each mutation, so nearby germline or somatic variants and splicing changes come from the reads rather than the reference genome.</p>
         <code class="pip">pip install isovar</code>
         <p class="links"><a href="https://github.com/openvax/isovar">Source</a></p>
       </article>
@@ -278,19 +275,19 @@
       </article>
       <article class="pkg" id="mhcflurry">
         <h4><a href="https://github.com/openvax/mhcflurry">MHCflurry</a></h4>
-        <p>Our open-source predictor of peptide presentation by MHC class I, with pretrained models for binding affinity, antigen processing and presentation. Runs from the command line or Python and can be retrained on new data.</p>
+        <p>Predicts which peptides MHC class I molecules present, with pretrained models for binding affinity, antigen processing and presentation. Runs from the command line or Python and can be retrained on new data.</p>
         <code class="pip">pip install mhcflurry</code>
-        <p class="links"><a href="https://openvax.github.io/mhcflurry/">Documentation</a><a href="https://github.com/openvax/mhcflurry">Source</a><a href="https://doi.org/10.1016/j.cels.2018.05.014">Paper (2018)</a><a href="https://doi.org/10.1016/j.cels.2020.06.010">MHCflurry 2.0 paper (2020)</a></p>
+        <p class="links"><a href="https://openvax.github.io/mhcflurry/">Documentation</a><a href="https://github.com/openvax/mhcflurry">Source</a><a href="https://doi.org/10.1016/j.cels.2018.05.014">Paper (2018)</a><a href="https://doi.org/10.1016/j.cels.2020.06.010">MHCflurry 2.0 paper (2020)</a><a href="https://doi.org/10.1007/978-1-0716-0327-7_8">Book chapter (2020)</a></p>
       </article>
       <article class="pkg" id="topiary">
         <h4><a href="https://github.com/openvax/topiary">Topiary</a></h4>
-        <p>Predicts, filters and ranks MHC-presented peptides from any source: tumor mutations, viral proteins or other antigens. Built on mhctools, with expression-aware ranking.</p>
+        <p>Predicts, filters and ranks MHC-presented peptides from any source, including tumor mutations and viral proteins. Built on mhctools.</p>
         <code class="pip">pip install topiary</code>
         <p class="links"><a href="https://openvax.github.io/topiary/">Documentation</a><a href="https://github.com/openvax/topiary">Source</a></p>
       </article>
       <article class="pkg wide" id="pipeline">
         <h4><a href="https://github.com/openvax/neoantigen-vaccine-pipeline">neoantigen-vaccine-pipeline</a></h4>
-        <p>The end-to-end workflow used in the Mount Sinai trials. Aligns tumor and normal sequencing, calls somatic variants and runs Vaxrank. Packaged with Snakemake and Docker.</p>
+        <p>The end-to-end workflow used in the Mount Sinai trials: aligns tumor and normal sequencing reads, calls somatic variants and runs Vaxrank. Packaged with Snakemake and Docker.</p>
         <p class="links"><a href="https://github.com/openvax/neoantigen-vaccine-pipeline">Source</a><a href="https://doi.org/10.3389/fimmu.2017.01807">Paper (2018)</a><a href="https://doi.org/10.1007/978-1-0716-0327-7_10">Book chapter (2020)</a></p>
       </article>
     </div>
@@ -328,55 +325,55 @@
 <section class="block" id="trials">
   <div class="wrap">
     <h2>Clinical trials</h2>
-    <p class="prose">Most trials so far have used <b>PGV-001</b>, a personalized vaccine developed at Mount Sinai. Each patient receives up to 10 synthetic long peptides chosen by the OpenVax pipeline, given with the adjuvant <a href="https://www.oncovir.com/science">poly-ICLC</a>.</p>
+    <p class="prose">Four trials at Mount Sinai have tested <b>PGV-001</b>, a personalized vaccine of up to 10 synthetic long peptides per patient, chosen by the OpenVax pipeline and given with the adjuvant <a href="https://www.oncovir.com/science">poly-ICLC</a>.</p>
 
     <h3>Mount Sinai</h3>
     <div class="trials">
       <article class="trial">
         <div>
-          <h4>Several cancers, after treatment</h4>
-          <p class="meta"><a href="https://clinicaltrials.gov/study/NCT02721043">NCT02721043</a> <span class="status done">Completed</span><br>PI: <a href="https://profiles.mountsinai.org/nina-bhardwaj">Nina Bhardwaj</a></p>
+          <h4>Solid tumors and myeloma</h4>
+          <p class="meta"><a class="nct" href="https://clinicaltrials.gov/study/NCT02721043">NCT02721043</a> <span class="status done">Completed</span><br>PI: <a href="https://profiles.mountsinai.org/nina-bhardwaj">Nina Bhardwaj</a></p>
         </div>
         <div class="trial-body">
-          <p>PGV-001 for patients with head and neck, lung, breast or bladder cancer, or multiple myeloma, once they had no detectable disease. The vaccine was safe, and every vaccinated patient developed T-cell responses to it.</p>
+          <p>Adjuvant PGV-001 after standard treatment of head and neck, lung, breast or bladder cancer, or multiple myeloma. The vaccine was safe and induced T-cell responses in every vaccinated patient.</p>
         <ul class="pubs">
           <li><span class="kind">Paper</span><a href="https://doi.org/10.1158/2159-8290.CD-24-0934">Saxena et al., <i>Cancer Discovery</i> 2025</a></li>
+          <li><span class="kind">Abstracts</span><a href="https://doi.org/10.1158/1538-7445.AM2023-CT270">AACR 2023</a>, <a href="https://doi.org/10.1158/1538-7445.AM2021-LB048">AACR 2021</a>, <a href="https://doi.org/10.1136/jitc-2020-SITC2020.0289">SITC 2020</a>, <a href="https://doi.org/10.1158/1538-7445.AM2020-CT173">AACR 2020</a>, <a href="https://doi.org/10.1200/JCO.2019.37.15_suppl.e14307">ASCO 2019</a>, <a href="https://doi.org/10.1186/s40425-018-0422-y">SITC 2018</a>, <a href="https://doi.org/10.1158/2326-6074.CRICIMTEATIAACR18-A005">CRI 2018</a>, <a href="https://higherlogicdownload.s3.amazonaws.com/SITCANCER/3bcb5ebf-803a-42fe-83b6-0773bc4eb962/UploadedImages/Annual%20Meeting%202017/SITC_2017_Abstract_Book.pdf">SITC 2017</a>, <a href="https://doi.org/10.1200/JCO.2017.35.15_suppl.TPS3114">ASCO 2017</a></li>
         </ul>
         </div>
       </article>
       <article class="trial">
         <div>
-          <h4>Glioblastoma, with tumor treating fields</h4>
-          <p class="meta"><a href="https://clinicaltrials.gov/study/NCT03223103">NCT03223103</a> <span class="status active">Active, not recruiting</span><br>PI: <a href="https://doctors.montefioreeinstein.org/providers/1427029461/adilia-hormigo">Adilia Hormigo</a></p>
+          <h4>Glioblastoma</h4>
+          <p class="meta"><a class="nct" href="https://clinicaltrials.gov/study/NCT03223103">NCT03223103</a> <span class="status active">Active, not recruiting</span><br>PI: <a href="https://doctors.montefioreeinstein.org/providers/1427029461/adilia-hormigo">Adilia Hormigo</a></p>
         </div>
         <div class="trial-body">
-          <p>PGV-001 added to standard treatment (surgery, radiation and temozolomide) plus <a href="https://www.novocure.com/ttfields">tumor treating fields</a> for newly diagnosed glioblastoma. Enrollment is complete and follow-up continues.</p>
+          <p>PGV-001 with <a href="https://www.novocure.com/ttfields">tumor treating fields</a>, added to standard treatment (surgery, radiation and temozolomide) for newly diagnosed glioblastoma. Enrollment is complete; follow-up continues.</p>
         <ul class="pubs">
-          <li><span class="kind">Abstract</span><a href="https://doi.org/10.1093/neuonc/noae165.0343">Society for Neuro-Oncology 2024</a></li>
-          <li><span class="kind">Abstract</span><a href="https://doi.org/10.1093/neuonc/noaa215.151">Society for Neuro-Oncology 2020, interim results</a></li>
+          <li><span class="kind">Abstracts</span><a href="https://doi.org/10.1093/neuonc/noae165.0343">SNO 2024</a>, <a href="https://doi.org/10.1136/jitc-2021-SITC2021.334">SITC 2021</a>, <a href="https://doi.org/10.1093/neuonc/noaa215.151">SNO 2020 (interim)</a>, <a href="https://doi.org/10.1093/neuonc/noaa215.301">SNO 2020 (neoantigen selection)</a>, <a href="https://doi.org/10.1158/1538-7445.AM2019-CT062">AACR 2019</a>, <a href="https://doi.org/10.1093/neuonc/noy148.026">SNO 2018</a></li>
         </ul>
         </div>
       </article>
       <article class="trial">
         <div>
-          <h4>Bladder cancer, with atezolizumab</h4>
-          <p class="meta"><a href="https://clinicaltrials.gov/study/NCT03359239">NCT03359239</a> <span class="status done">Completed</span><br>PI: <a href="https://profiles.mountsinai.org/matthew-galsky">Matthew Galsky</a></p>
+          <h4>Urothelial cancer</h4>
+          <p class="meta"><a class="nct" href="https://clinicaltrials.gov/study/NCT03359239">NCT03359239</a> <span class="status done">Completed</span><br>PI: <a href="https://profiles.mountsinai.org/matthew-galsky">Matthew Galsky</a></p>
         </div>
         <div class="trial-body">
-          <p>PGV-001 combined with the checkpoint inhibitor atezolizumab for advanced urothelial cancer. The combination was safe, and all patients developed T-cell responses to the vaccine.</p>
+          <p>PGV-001 with the checkpoint inhibitor atezolizumab for advanced urothelial cancer. The combination was safe and induced T-cell responses in all patients.</p>
         <ul class="pubs">
           <li><span class="kind">Paper</span><a href="https://doi.org/10.1038/s43018-025-00966-7">Saxena et al., <i>Nature Cancer</i> 2025</a></li>
-          <li><span class="kind">Abstract</span><a href="https://doi.org/10.1200/JCO.2024.42.4_suppl.597">ASCO Genitourinary Cancers Symposium 2024</a></li>
+          <li><span class="kind">Abstracts</span><a href="https://doi.org/10.1158/1538-7445.AM2024-LB113">AACR 2024</a>, <a href="https://doi.org/10.1200/JCO.2024.42.4_suppl.597">ASCO GU 2024</a></li>
         </ul>
         </div>
       </article>
       <article class="trial">
         <div>
           <h4>Prostate cancer</h4>
-          <p class="meta"><a href="https://clinicaltrials.gov/study/NCT05010200">NCT05010200</a> <span class="status active">Active, not recruiting</span><br>PI: <a href="https://profiles.mountsinai.org/ashutosh-tewari">Ash Tewari</a></p>
+          <p class="meta"><a class="nct" href="https://clinicaltrials.gov/study/NCT05010200">NCT05010200</a> <span class="status active">Active, not recruiting</span><br>PI: <a href="https://profiles.mountsinai.org/ashutosh-tewari">Ash Tewari</a></p>
         </div>
         <div class="trial-body">
-          <p>PGV-001, alone or with the immune stimulant CDX-301 (FLT3 ligand), for prostate cancer in the adjuvant setting. Enrollment is complete (27 patients) and results are pending.</p>
+          <p>Adjuvant PGV-001, alone or with the immune stimulant CDX-301 (FLT3 ligand). Enrollment is complete (27 patients); results are pending.</p>
         </div>
       </article>
     </div>
@@ -385,11 +382,11 @@
     <div class="trials">
       <article class="trial">
         <div>
-          <h4>Liver cancer, with nivolumab</h4>
-          <p class="meta"><a href="https://clinicaltrials.gov/study/NCT04912765">NCT04912765</a> <span class="status open">Recruiting</span><br>PI: <a href="https://www.nccs.com.sg/doctor/medical-oncology/han-shuting">Shuting Han</a>, <a href="https://www.nccs.com.sg/">National Cancer Centre Singapore</a></p>
+          <h4>Liver cancer</h4>
+          <p class="meta"><a class="nct" href="https://clinicaltrials.gov/study/NCT04912765">NCT04912765</a> <span class="status open">Recruiting</span><br>PI: <a href="https://www.nccs.com.sg/doctor/medical-oncology/han-shuting">Shuting Han</a>, <a href="https://www.nccs.com.sg/">National Cancer Centre Singapore</a></p>
         </div>
         <div class="trial-body">
-          <p>A dendritic cell vaccine loaded with each patient's neoantigens, combined with nivolumab after surgery for hepatocellular carcinoma or colorectal cancer that has spread to the liver. Targets are selected with the OpenVax pipeline and Vaxrank.</p>
+          <p>A dendritic cell vaccine loaded with each patient's neoantigens, given with nivolumab after surgery for hepatocellular carcinoma or colorectal cancer metastatic to the liver. Neoantigens are selected with the OpenVax pipeline.</p>
         <ul class="pubs">
           <li><span class="kind">Paper</span><a href="https://doi.org/10.1126/sciadv.adz1156">Teo et al., <i>Science Advances</i> 2026</a></li>
         </ul>
@@ -404,11 +401,13 @@
     <h2>Papers</h2>
     <h3 style="margin-top:0">Software and methods</h3>
     <ul class="refs">
+      <li><span class="title"><a href="https://doi.org/10.1101/054775">Predicting peptide-MHC binding affinities with imputed training data</a></span><br><span class="src">Rubinsteyn, O'Donnell, Damaraju &amp; Hammerbacher. <i>bioRxiv</i>, 2016.</span></li>
       <li><span class="title"><a href="https://doi.org/10.1101/142919">Vaxrank: a computational tool for designing personalized cancer vaccines</a></span><br><span class="src">Rubinsteyn, Hodes, Kodysh &amp; Hammerbacher. <i>bioRxiv</i>, 2017.</span></li>
-      <li><span class="title"><a href="https://doi.org/10.3389/fimmu.2017.01807">Computational pipeline for the PGV-001 neoantigen vaccine trial</a></span><br><span class="src">Rubinsteyn et al. <i>Frontiers in Immunology</i>, 2018.</span></li>
-      <li><span class="title"><a href="https://doi.org/10.1016/j.cels.2018.05.014">MHCflurry: open-source class I MHC binding affinity prediction</a></span><br><span class="src">O'Donnell et al. <i>Cell Systems</i>, 2018.</span></li>
+      <li><span class="title"><a href="https://doi.org/10.3389/fimmu.2017.01807">Computational pipeline for the PGV-001 neoantigen vaccine trial</a></span><br><span class="src">Rubinsteyn et al. <i>Frontiers in Immunology</i>, 2018. <a href="https://doi.org/10.1101/174516">Preprint</a></span></li>
+      <li><span class="title"><a href="https://doi.org/10.1016/j.cels.2018.05.014">MHCflurry: open-source class I MHC binding affinity prediction</a></span><br><span class="src">O'Donnell et al. <i>Cell Systems</i>, 2018. <a href="https://doi.org/10.1101/174243">Preprint</a></span></li>
       <li><span class="title"><a href="https://doi.org/10.1007/978-1-0716-0327-7_10">OpenVax: an open-source computational pipeline for cancer neoantigen prediction</a></span><br><span class="src">Kodysh &amp; Rubinsteyn. <i>Methods in Molecular Biology</i>, 2020.</span></li>
-      <li><span class="title"><a href="https://doi.org/10.1016/j.cels.2020.06.010">MHCflurry 2.0: improved pan-allele prediction of MHC class I-presented peptides by incorporating antigen processing</a></span><br><span class="src">O'Donnell, Rubinsteyn &amp; Laserson. <i>Cell Systems</i>, 2020.</span></li>
+      <li><span class="title"><a href="https://doi.org/10.1007/978-1-0716-0327-7_8">High-throughput MHC I ligand prediction using MHCflurry</a></span><br><span class="src">O'Donnell &amp; Rubinsteyn. <i>Methods in Molecular Biology</i>, 2020.</span></li>
+      <li><span class="title"><a href="https://doi.org/10.1016/j.cels.2020.06.010">MHCflurry 2.0: improved pan-allele prediction of MHC class I-presented peptides by incorporating antigen processing</a></span><br><span class="src">O'Donnell, Rubinsteyn &amp; Laserson. <i>Cell Systems</i>, 2020. <a href="https://doi.org/10.1101/2020.03.28.013714">Preprint</a></span></li>
     </ul>
 
     <h3>Clinical results</h3>
@@ -424,14 +423,14 @@
   <div class="wrap">
     <h2>History</h2>
     <div class="prose">
-      <p>OpenVax started in <a href="https://web.archive.org/web/20170604013230/http://www.hammerlab.org/">Hammer Lab</a>, Jeff Hammerbacher's lab at <a href="https://icahn.mssm.edu/">Mount Sinai</a>, where the first of these libraries were written. We then developed the OpenVax pipeline to select vaccine targets for <a href="https://profiles.mountsinai.org/nina-bhardwaj">Nina Bhardwaj</a>'s <a href="https://labs.icahn.mssm.edu/saxenalab/">Vaccine and Cell Therapy Lab</a>, and for a while were a small research group of our own within Mount Sinai.</p>
-      <p>That group has since wound down, but the software has not. Mount Sinai still uses it to design vaccines, and maintenance and new development continue at the <a href="https://pirl.unc.edu/">Personalized Immunotherapy Research Lab</a> at UNC Chapel Hill.</p>
+      <p>OpenVax started in <a href="https://web.archive.org/web/20170604013230/http://www.hammerlab.org/">Hammer Lab</a>, Jeff Hammerbacher's lab at <a href="https://icahn.mssm.edu/">Mount Sinai</a>, where the first of these libraries were written. The group then built the OpenVax pipeline to select vaccine targets for <a href="https://profiles.mountsinai.org/nina-bhardwaj">Nina Bhardwaj</a>'s <a href="https://labs.icahn.mssm.edu/saxenalab/">Vaccine and Cell Therapy Lab</a>, and for several years was its own small research group within Mount Sinai.</p>
+      <p>The group has since wound down. Mount Sinai still uses the software to design vaccines, and development continues at <a href="https://pirl.unc.edu/">PIRL</a> at UNC Chapel Hill.</p>
     </div>
 
     <h2 id="people" style="margin-top:3.5rem">People</h2>
     <div class="people">
       <div class="person"><h4><a href="https://unclineberger.org/directory/alex-rubinsteyn/">Alex Rubinsteyn</a></h4><p>Wrote most of the OpenVax libraries and still maintains them. Faculty in <a href="https://www.med.unc.edu/genetics/">Genetics</a> and <a href="https://www.med.unc.edu/compmed/">Computational Medicine</a> at UNC Chapel Hill, where he co-leads <a href="https://pirl.unc.edu/">PIRL</a>.</p></div>
-      <div class="person"><h4><a href="https://github.com/julia326">Julia Kodysh</a></h4><p>Built the <a href="https://github.com/openvax/neoantigen-vaccine-pipeline">vaccine pipeline</a> used in the Mount Sinai trials and still works on it. Also at <a href="https://www.freenome.com/">Freenome</a>.</p></div>
+      <div class="person"><h4><a href="https://github.com/julia326">Julia Kodysh</a></h4><p>Built the <a href="https://github.com/openvax/neoantigen-vaccine-pipeline">vaccine pipeline</a> used in the Mount Sinai trials and still works on it. Works at <a href="https://www.freenome.com/">Freenome</a>.</p></div>
       <div class="person"><h4><a href="https://timodonnell.github.io/">Tim O'Donnell</a></h4><p>Created MHCflurry and still contributes to it. Now at <a href="https://openathena.ai/">Open Athena</a>, a nonprofit that helps academic labs build scientific AI models.</p></div>
       <div class="person"><h4><a href="https://profiles.mountsinai.org/mesude-bicak">Mesude Bicak</a></h4><p>Directs the Bioinformatics Program at the <a href="https://icahn.mssm.edu/research/tisch">Mount Sinai Tisch Cancer Center</a> and uses OpenVax to design vaccines there.</p></div>
     </div>
@@ -452,7 +451,7 @@
   <div class="wrap cols">
     <div>
       <h5>OpenVax</h5>
-      <p>Open-source software for personalized cancer vaccines, Apache 2.0 licensed. Questions and bug reports are welcome as issues on the relevant <a href="https://github.com/openvax">GitHub repository</a>.</p>
+      <p>Open-source software for personalized cancer vaccines, Apache 2.0 licensed. For questions or bug reports, open an issue on the relevant <a href="https://github.com/openvax">GitHub repository</a>.</p>
     </div>
     <div>
       <h5>Code</h5>
