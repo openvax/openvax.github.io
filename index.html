@@ -138,6 +138,20 @@
   .pkg.wide { grid-column: 1 / -1; }
   .utils { max-width: 52rem; }
 
+  /* Tutorial */
+  .howto { list-style: none; counter-reset: step; margin: 2rem 0 1.5rem; padding: 0; max-width: 52rem; }
+  .howto > li { counter-increment: step; position: relative; padding-left: 2.5rem; margin-bottom: 2rem; }
+  .howto > li::before {
+    content: counter(step); position: absolute; left: 0; top: 0.05rem;
+    width: 1.6rem; height: 1.6rem; border-radius: 50%; border: 1.5px solid var(--teal);
+    color: var(--teal); font-size: 0.85rem; font-weight: 600; display: grid; place-items: center;
+  }
+  .howto h4 { margin: 0 0 0.5rem; font-size: 1.05rem; }
+  .howto p { max-width: 44rem; }
+  pre { margin: 0.75rem 0 1rem; padding: 0.9rem 1rem; background: var(--panel); border-radius: 6px; overflow-x: auto; font-size: 0.85rem; line-height: 1.55; }
+  pre code { font-size: inherit; color: var(--navy); }
+  p code { white-space: nowrap; }
+
   /* Trials */
   .trials { border-top: 1px solid var(--rule); }
   .trial { display: grid; grid-template-columns: 1fr; gap: 0.75rem 2.5rem; padding: 1.75rem 0; border-bottom: 1px solid var(--rule); }
@@ -204,6 +218,7 @@
     </a>
     <nav aria-label="Sections">
       <a href="#software">Software</a>
+      <a class="optional" href="#tutorial">Tutorial</a>
       <a href="#trials">Trials</a>
       <a href="#papers">Papers</a>
       <a class="optional" href="#people">People</a>
@@ -319,6 +334,58 @@
       <a href="https://github.com/openvax/sercol">sercol</a> and
       <a href="https://github.com/openvax/serializable">serializable</a> (shared base classes).
     </p>
+  </div>
+</section>
+
+<section class="block" id="tutorial">
+  <div class="wrap">
+    <h2>Tutorial</h2>
+    <div class="prose">
+      <p>The <a href="https://github.com/openvax/neoantigen-vaccine-pipeline">neoantigen-vaccine-pipeline</a> runs everything from raw sequencing reads to ranked vaccine peptides inside one Docker image. You need tumor and normal whole-exome sequencing and tumor RNA-seq as gzipped FASTQ files, the patient's MHC class I alleles, and a machine with at least 16 cores. No cluster is required.</p>
+    </div>
+    <ol class="howto">
+      <li>
+        <h4>Install</h4>
+        <pre><code>docker pull openvax/neoantigen-vaccine-pipeline:latest
+docker run openvax/neoantigen-vaccine-pipeline:latest -h</code></pre>
+      </li>
+      <li>
+        <h4>Get a reference genome</h4>
+        <p>Processed b37decoy, GRCh38 and mm10 references are available in <a href="https://console.cloud.google.com/storage/browser/reference-genomes">Google Cloud</a>. For GRCh38:</p>
+        <pre><code>gsutil -m cp gs://reference-genomes/grch38.tar.gz /path/to/reference-genome/
+cd /path/to/reference-genome &amp;&amp; tar -zxvf grch38.tar.gz
+chmod -R a+w grch38</code></pre>
+      </li>
+      <li>
+        <h4>Set up three directories</h4>
+        <p>They are mounted as Docker volumes: <code>/inputs</code> holds the FASTQ files and a config file, <code>/outputs</code> receives results, and <code>/reference-genome</code> holds the reference data. All three must be world-writable, because the pipeline runs as an unprivileged user.</p>
+      </li>
+      <li>
+        <h4>Write a config</h4>
+        <p>A YAML file in <code>/inputs</code> lists the sample's files, up to six MHC class I alleles (each must be supported by NetMHCpan) and tool settings. Paths are relative to the mounted directories. Start from the <a href="https://github.com/openvax/neoantigen-vaccine-pipeline/blob/master/test/idh1_config_grch38.yaml">example config</a>. Paired-end reads use <code>r1</code> and <code>r2</code> entries with <code>type: paired-end</code>; data from several lanes goes in separate fragments with distinct <code>fragment_id</code> values.</p>
+      </li>
+      <li>
+        <h4>Run the test case</h4>
+        <p>The test data is a small set of reads covering the IDH1 R132H mutation, with the tumor DNA reads reused as RNA.</p>
+        <pre><code>cd /path/to/inputs
+URL=https://github.com/openvax/neoantigen-vaccine-pipeline/raw/master
+wget $URL/test/idh1_config_grch38.yaml
+wget $URL/datagen/idh1_r132h_normal.fastq.gz
+wget $URL/datagen/idh1_r132h_tumor.fastq.gz
+
+docker run -it \
+  -v /path/to/inputs:/inputs \
+  -v /path/to/outputs:/outputs \
+  -v /path/to/reference-genome:/reference-genome \
+  openvax/neoantigen-vaccine-pipeline:latest \
+  --configfile=/inputs/idh1_config_grch38.yaml</code></pre>
+        <p>The first run takes a few extra minutes while files are downloaded and cached. Results include ranked variants and vaccine peptides as text and PDF reports; the test should report a single IDH1 R132H variant.</p>
+      </li>
+    </ol>
+    <div class="prose">
+      <p>To call somatic variants only, leave the tumor RNA and HLA alleles out of the config and the pipeline writes Mutect and Strelka VCFs instead (<a href="https://github.com/openvax/neoantigen-vaccine-pipeline/blob/master/test/idh1_config_dna_only.yaml">example config</a>). Intermediate outputs and other options are described in the <a href="https://github.com/openvax/neoantigen-vaccine-pipeline#readme">pipeline README</a>.</p>
+      <p class="muted">Adapted from a 2020 post by Julia Kodysh.</p>
+    </div>
   </div>
 </section>
 
