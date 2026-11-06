@@ -59,7 +59,7 @@
   a:focus-visible { outline: 2px solid var(--teal); outline-offset: 2px; border-radius: 2px; }
   code { font-family: var(--mono); font-size: 0.84em; font-stretch: 87.5%; }
   h1, h2, h3, h4 { color: var(--navy); font-weight: 600; line-height: 1.2; }
-  h2 { font-size: 2.1rem; font-weight: 700; letter-spacing: -0.025em; margin: 0 0 1rem; }
+  h2 { font-size: 1.9rem; font-weight: 700; letter-spacing: -0.025em; line-height: 1.1; margin: 0; }
   h3 { font-size: 1.125rem; margin: 2.5rem 0 1rem; }
   p { margin: 0 0 1rem; }
   .wrap { max-width: var(--wide); margin: 0 auto; padding: 0 1.5rem; }
@@ -137,7 +137,10 @@
   }
 
   /* Sections */
-  section.block { padding: 4rem 0; border-top: 1px solid var(--rule); }
+  section.block { padding: 4.5rem 0; border-top: 1px solid var(--rule); }
+  section.block > .wrap { display: grid; gap: 1.5rem 3rem; }
+  .body { min-width: 0; }
+  .body > :first-child { margin-top: 0; }
 
   /* Pipeline diagram */
   .pipe { display: grid; grid-template-columns: 1fr; gap: 1.6rem; margin-top: 2rem; max-width: 22rem; }
@@ -159,12 +162,12 @@
   }
 
   /* Packages */
-  .pkgs { display: grid; grid-template-columns: 1fr; gap: 1rem; }
-  .pkg { border: 1px solid var(--rule); border-radius: 8px; padding: 1.25rem 1.25rem 1rem; display: flex; flex-direction: column; }
-  .pkg h4 { margin: 0 0 0.5rem; font-size: 1.15rem; }
+  .pkgs { display: grid; grid-template-columns: 1fr; gap: 2.25rem 3rem; }
+  .pkg { border-top: 1px solid var(--rule); padding-top: 1.1rem; display: flex; flex-direction: column; }
+  .pkg h4 { margin: 0 0 0.4rem; font-size: 1.35rem; font-weight: 700; letter-spacing: -0.02em; }
   .pkg h4 a { color: var(--navy); }
   .pkg p { font-size: 0.97rem; }
-  .pkg code.pip { display: block; margin-top: auto; padding: 0.45rem 0.7rem; background: var(--panel); border-radius: 4px; font-size: 0.85rem; color: var(--navy); }
+  .pkg code.pip { display: block; width: fit-content; margin-top: auto; padding: 0.45rem 0.7rem; background: var(--panel); border-radius: 4px; font-size: 0.85rem; color: var(--navy); }
   .pkg .links { display: flex; flex-wrap: wrap; gap: 0.25rem 1.1rem; margin: 0.8rem 0 0; font-size: 0.92rem; }
   .pkg.wide { grid-column: 1 / -1; }
 
@@ -225,7 +228,9 @@
     .hero { grid-template-columns: 1.25fr 1fr; padding-top: 5rem; padding-bottom: 5rem; }
     .pipe { grid-template-columns: repeat(6, 1fr); column-gap: 2rem; row-gap: 1.25rem; max-width: none; }
     .steps li:not(:last-child)::after { content: "→"; left: auto; bottom: auto; right: -1.45rem; top: 1.7rem; transform: translateY(-50%); }
-    .trial { grid-template-columns: 17rem 1fr; }
+    .trial { grid-template-columns: 15rem 1fr; }
+    section.block > .wrap { grid-template-columns: 12rem minmax(0, 1fr); }
+    section.block h2 { position: sticky; top: 5.5rem; align-self: start; }
   }
   @media (max-width: 40rem) {
     .topbar .wrap { gap: 1rem; }
@@ -280,6 +285,7 @@
 <section class="block" id="software">
   <div class="wrap">
     <h2>Software</h2>
+    <div class="body">
     <p class="prose">Each step below is a separate package that can be used on its own.</p>
     <div class="pipe">
       <ol class="steps">
@@ -361,12 +367,14 @@
         <code class="pip">pip install datacache</code>
       </article>
     </div>
+    </div>
   </div>
 </section>
 
 <section class="block" id="tutorial">
   <div class="wrap">
     <h2>Tutorial</h2>
+    <div class="body">
     <div class="prose">
       <p>The <a href="https://github.com/openvax/neoantigen-vaccine-pipeline">neoantigen-vaccine-pipeline</a> runs everything from raw sequencing reads to ranked vaccine peptides inside one Docker image. The image contains OpenVax v1, the version used to design the vaccines in the PGV-001 trials; OpenVax v2 is under active development. You need tumor and normal whole-exome sequencing and tumor RNA-seq as gzipped FASTQ files, the patient's MHC class I alleles, and a machine with at least 16 cores. No cluster is required.</p>
     </div>
@@ -413,12 +421,14 @@ docker run -it \
       <p>To call somatic variants only, leave the tumor RNA and HLA alleles out of the config and the pipeline writes Mutect and Strelka VCFs instead (<a href="https://github.com/openvax/neoantigen-vaccine-pipeline/blob/master/test/idh1_config_dna_only.yaml">example config</a>). Intermediate outputs and other options are described in the <a href="https://github.com/openvax/neoantigen-vaccine-pipeline#readme">pipeline README</a>.</p>
       <p class="muted">Adapted from a 2020 post by Julia Kodysh.</p>
     </div>
+    </div>
   </div>
 </section>
 
 <section class="block" id="trials">
   <div class="wrap">
     <h2>Clinical trials</h2>
+    <div class="body">
     <p class="prose">Four trials at Mount Sinai have tested <b>PGV-001</b>, a personalized vaccine of up to 10 synthetic long peptides per patient, chosen by the OpenVax pipeline and given with the adjuvant <a href="https://www.oncovir.com/science">poly-ICLC</a>.</p>
 
     <h3>Mount Sinai</h3>
@@ -487,12 +497,14 @@ docker run -it \
         </div>
       </article>
     </div>
+    </div>
   </div>
 </section>
 
 <section class="block" id="papers">
   <div class="wrap">
     <h2>Papers</h2>
+    <div class="body">
     <h3 style="margin-top:0">Software and methods</h3>
     <ul class="refs">
       <li><span class="title"><a href="https://doi.org/10.1101/054775">Predicting peptide-MHC binding affinities with imputed training data</a></span><br><span class="src">Rubinsteyn, O'Donnell, Damaraju &amp; Hammerbacher. <i>bioRxiv</i>, 2016.</span></li>
@@ -510,18 +522,27 @@ docker run -it \
       <li><span class="title"><a href="https://doi.org/10.1038/s43018-025-00966-7">Atezolizumab plus personalized neoantigen vaccination in urothelial cancer: a phase 1 trial</a></span><br><span class="src">Saxena, Anker, Kodysh et al. <i>Nature Cancer</i>, 2025. Trial <a href="https://clinicaltrials.gov/study/NCT03359239">NCT03359239</a></span></li>
       <li><span class="title"><a href="https://doi.org/10.1126/sciadv.adz1156">Healthy donor T cell receptors expand functional neoantigen recognition beyond patient vaccination</a></span><br><span class="src">Teo et al. <i>Science Advances</i>, 2026. Trial <a href="https://clinicaltrials.gov/study/NCT04912765">NCT04912765</a></span></li>
     </ul>
+    </div>
   </div>
 </section>
 
 <section class="block" id="history">
   <div class="wrap">
     <h2>History</h2>
+    <div class="body">
     <div class="prose">
       <p>OpenVax started in <a href="https://web.archive.org/web/20170604013230/http://www.hammerlab.org/">Hammer Lab</a>, Jeff Hammerbacher's lab at <a href="https://icahn.mssm.edu/">Mount Sinai</a>, where the first of these libraries were written. The group then built the OpenVax pipeline to select vaccine targets for <a href="https://profiles.mountsinai.org/nina-bhardwaj">Nina Bhardwaj</a>'s <a href="https://labs.icahn.mssm.edu/saxenalab/">Vaccine and Cell Therapy Lab</a>, and for several years was its own small research group within Mount Sinai.</p>
       <p>The group has since wound down. Mount Sinai still uses the software to design vaccines, and development continues at <a href="https://pirl.unc.edu/">PIRL</a> at UNC Chapel Hill.</p>
     </div>
 
-    <h2 id="people" style="margin-top:3.5rem">People</h2>
+    </div>
+  </div>
+</section>
+
+<section class="block" id="people">
+  <div class="wrap">
+    <h2>People</h2>
+    <div class="body">
     <div class="people">
       <div class="person"><h4><a href="https://unclineberger.org/directory/alex-rubinsteyn/">Alex Rubinsteyn</a></h4><p>Wrote most of the OpenVax libraries and still maintains them. Faculty in <a href="https://www.med.unc.edu/genetics/">Genetics</a> and <a href="https://www.med.unc.edu/compmed/">Computational Medicine</a> at UNC Chapel Hill and a member of the <a href="https://unclineberger.org/">UNC Lineberger Comprehensive Cancer Center</a>. Co-leads the <a href="https://pirl.unc.edu/">Personalized Immunotherapy Research Lab</a>.</p></div>
       <div class="person"><h4><a href="https://github.com/julia326">Julia Kodysh</a></h4><p>Built the <a href="https://github.com/openvax/neoantigen-vaccine-pipeline">vaccine pipeline</a> used in the Mount Sinai trials and still works on it. Works at <a href="https://www.freenome.com/">Freenome</a>.</p></div>
@@ -536,6 +557,7 @@ docker run -it \
       <div class="person"><h4><a href="https://isaachodes.io/">Isaac Hodes</a></h4><p>Worked on the first version of the PGV trial pipeline. Now at <a href="https://openathena.ai/">Open Athena</a>.</p></div>
     </div>
     <p class="muted" style="margin-top:1.5rem">Other contributors include Arun Ahuja, Arman Aksoy, Seb Mondet and Walid Ahmad.</p>
+    </div>
   </div>
 </section>
 
