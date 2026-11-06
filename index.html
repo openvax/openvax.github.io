@@ -116,8 +116,6 @@
     text-align: center; white-space: nowrap; font-family: var(--sans); font-weight: 500; font-size: 0.85rem; color: var(--navy);
     animation: appear 0.5s ease-out 3.4s backwards;
   }
-  .peptide figcaption { margin-top: 1.5rem; max-width: 36rem; font-size: 0.95rem; color: var(--muted); line-height: 1.5; }
-  .peptide figcaption b { color: var(--mut); font-weight: 600; }
   @keyframes scan {
     0% { transform: translateX(-44.444%); }
     8% { transform: translateX(-33.333%); }
@@ -271,14 +269,13 @@
     <p class="note">Maintained and developed by the <a href="https://pirl.unc.edu/">Personalized Immunotherapy Research Lab</a> at UNC Chapel Hill.</p>
   </div>
 
-  <figure class="peptide" aria-label="Example vaccine peptide spanning the KRAS G12D mutation">
+  <figure class="peptide" aria-label="Example vaccine peptide spanning the KRAS G12D mutation, with the HLA-A*11:01 epitope VVGADGVGK highlighted">
     <div class="seq" aria-hidden="true">
       <span class="n" style="grid-column:1">1</span><span class="n" style="grid-column:12">12</span><span class="n" style="grid-column:25">25</span>
       <span class="win"></span>
       <span class="r">M</span><span class="r">T</span><span class="r">E</span><span class="r">Y</span><span class="r">K</span><span class="r">L</span><span class="r">V</span><span class="r lig">V</span><span class="r lig">V</span><span class="r lig">G</span><span class="r lig">A</span><span class="r lig mut">D</span><span class="r lig">G</span><span class="r lig">V</span><span class="r lig">G</span><span class="r lig">K</span><span class="r">S</span><span class="r">A</span><span class="r">L</span><span class="r">T</span><span class="r">I</span><span class="r">Q</span><span class="r">L</span><span class="r">I</span><span class="r">Q</span>
       <span class="tag">HLA-A*11:01</span>
     </div>
-    <figcaption>A 25-residue vaccine peptide from KRAS spanning the G12D mutation (<b>pink</b>). The highlighted 9-mer, VVGADGVGK, is presented to T cells by HLA-A*11:01. Vaxrank picks peptides like this for each patient.</figcaption>
   </figure>
 </section>
 
