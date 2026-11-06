@@ -1,0 +1,19 @@
+# GitHub Pages builds this site with Jekyll. index.html has no front matter,
+# so Jekyll copies it unchanged; only the blog uses layouts.
+title: OpenVax
+description: Open-source software for personalized cancer vaccines.
+url: https://openvax.org
+baseurl: ""
+timezone: America/New_York
+
+# Posts live in _posts/YYYY-MM-DD-slug.md and are served at /blog/slug,
+# the same URLs the old openvax.org blog used.
+permalink: /blog/:title
+
+plugins:
+  - jekyll-feed
+feed:
+  path: blog/feed.xml
+
+exclude:
+  - README.md
