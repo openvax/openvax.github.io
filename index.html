@@ -5,34 +5,38 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>OpenVax</title>
 <meta name="description" content="Open-source software for personalized cancer vaccines: Vaxrank, Isovar, Varcode, mhctools, MHCflurry, PyEnsembl.">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cpath d='M4 16h24' stroke='%230e2a3f' stroke-width='2.5'/%3E%3Ccircle cx='5' cy='16' r='4' fill='%230e2a3f'/%3E%3Ccircle cx='27' cy='16' r='4' fill='%230e2a3f'/%3E%3Ccircle cx='16' cy='16' r='6' fill='%23c2255c'/%3E%3C/svg%3E">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cpath d='M4 16h24' stroke='%23221d55' stroke-width='2.5'/%3E%3Ccircle cx='5' cy='16' r='4' fill='%23221d55'/%3E%3Ccircle cx='27' cy='16' r='4' fill='%23221d55'/%3E%3Ccircle cx='16' cy='16' r='6' fill='%23cc2266'/%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Martian+Mono:wdth,wght@75..112.5,300..600&family=Schibsted+Grotesk:ital,wght@0,400..800;1,400..800&display=swap" rel="stylesheet">
 <style>
   :root {
-    --navy: #0e2a3f;
-    --ink: #1f2f3c;
-    --muted: #5a6b79;
-    --teal: #0b7285;
-    --mut: #c2255c;
-    --paper: #ffffff;
-    --panel: #f2f5f7;
-    --rule: #d9e1e7;
-    --sans: "IBM Plex Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-    --mono: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+    --navy: #221d55;
+    --ink: #2f2b55;
+    --muted: #69658e;
+    --teal: #3d36a0;
+    --mut: #cc2266;
+    --paper: #fcfbff;
+    --panel: #f0eef8;
+    --rule: #e2dff0;
+    --faint: #c9c5df;
+    --on-mut: #ffffff;
+    --sans: "Schibsted Grotesk", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    --mono: "Martian Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
     --wide: 72rem;
   }
   @media (prefers-color-scheme: dark) {
     :root {
-      --navy: #dce6ee;
-      --ink: #cfd9e1;
-      --muted: #8fa1af;
-      --teal: #5cc4d4;
-      --mut: #f06595;
-      --paper: #0f1c26;
-      --panel: #162a38;
-      --rule: #263d4e;
+      --navy: #ece9ff;
+      --ink: #d6d2f0;
+      --muted: #9d98c2;
+      --teal: #aea8ff;
+      --mut: #ff5c97;
+      --paper: #13112a;
+      --panel: #1d1a3b;
+      --rule: #2c2852;
+      --faint: #3e3a66;
+      --on-mut: #1c0a17;
     }
   }
 
@@ -53,9 +57,9 @@
   }
   p:not(.meta):not(.links) a:hover { text-decoration-color: currentColor; }
   a:focus-visible { outline: 2px solid var(--teal); outline-offset: 2px; border-radius: 2px; }
-  code { font-family: var(--mono); font-size: 0.9em; }
+  code { font-family: var(--mono); font-size: 0.84em; font-stretch: 87.5%; }
   h1, h2, h3, h4 { color: var(--navy); font-weight: 600; line-height: 1.2; }
-  h2 { font-size: 2.1rem; font-weight: 400; letter-spacing: -0.01em; margin: 0 0 1rem; }
+  h2 { font-size: 1.9rem; font-weight: 700; letter-spacing: -0.025em; line-height: 1.1; margin: 0; }
   h3 { font-size: 1.125rem; margin: 2.5rem 0 1rem; }
   p { margin: 0 0 1rem; }
   .wrap { max-width: var(--wide); margin: 0 auto; padding: 0 1.5rem; }
@@ -78,34 +82,63 @@
   .topbar .gh svg { width: 1.3rem; height: 1.3rem; display: block; fill: currentColor; }
 
   /* Hero */
-  .hero { display: grid; grid-template-columns: 1fr; gap: 3rem; padding-top: 4rem; padding-bottom: 4rem; align-items: center; }
-  .hero h1 { font-size: clamp(2.1rem, 4.4vw, 2.9rem); font-weight: 400; line-height: 1.12; letter-spacing: -0.015em; margin: 0 0 1.25rem; }
-  .lede { font-size: 1.2rem; color: var(--ink); max-width: 36rem; }
+  .hero { display: grid; grid-template-columns: 1fr; gap: 1.5rem 4rem; padding-top: 4rem; padding-bottom: 4rem; align-items: end; }
+  .hero h1 { font-size: clamp(2.6rem, 6vw, 4.75rem); font-weight: 700; line-height: 0.98; letter-spacing: -0.035em; margin: 0; }
+  .lede { font-size: 1.125rem; color: var(--ink); max-width: 34rem; }
   .install {
     display: inline-block; margin: 0.5rem 0 1.5rem;
     background: var(--panel); border: 1px solid var(--rule); border-radius: 6px;
-    padding: 0.6rem 1rem; font-family: var(--mono); font-size: 0.95rem; color: var(--navy);
+    padding: 0.55rem 0.95rem; font-family: var(--mono); font-stretch: 87.5%; font-size: 0.88rem; color: var(--navy);
   }
   .install .prompt { color: var(--muted); user-select: none; margin-right: 0.6em; }
   .hero .note { color: var(--muted); font-size: 0.95rem; max-width: 34rem; }
 
   /* The peptide */
-  .peptide { margin: 0; padding: 1.5rem 1.25rem 1.25rem; background: var(--panel); border-radius: 8px; }
+  .peptide { grid-column: 1 / -1; margin: 3rem 0 0; }
   .seq {
-    display: grid; grid-template-columns: repeat(25, 1fr);
-    font-family: var(--mono); font-weight: 500; text-align: center;
-    font-size: clamp(0.8rem, 2.9vw, 1.2rem); color: var(--navy);
+    position: relative;
+    display: grid; grid-template-columns: repeat(25, minmax(0, 1fr));
+    font-family: var(--mono); font-stretch: 87.5%; font-weight: 300; text-align: center; line-height: 1;
+    font-size: clamp(0.95rem, 4.7vw, 3rem); max-width: 17.75em; color: var(--faint);
   }
-  .seq .n { font-size: 0.6em; font-weight: 400; color: var(--muted); padding-bottom: 0.35rem; }
-  .seq .r { padding: 0.3em 0; }
-  .seq .lig { border-bottom: 3px solid var(--teal); color: var(--teal); }
-  .seq .mut { background: var(--mut); color: #fff; border-radius: 3px; }
-  .seq .tag { grid-column: 8 / 17; justify-self: center; white-space: nowrap; font-family: var(--sans); font-weight: 400; font-size: 0.8rem; color: var(--teal); padding-top: 0.4rem; line-height: 1.3; }
-  .peptide figcaption { margin-top: 1.25rem; font-size: 0.9rem; color: var(--muted); line-height: 1.5; }
-  .peptide figcaption b { color: var(--mut); font-weight: 600; }
+  .seq .n { font-family: var(--sans); font-size: 0.75rem; color: var(--muted); padding-bottom: 0.6rem; }
+  .seq .r { position: relative; z-index: 1; padding: 0.22em 0; }
+  .seq .lig { color: var(--navy); font-weight: 500; animation: lock 0.5s ease-out 3.4s backwards; }
+  .seq .mut { background: var(--mut); color: var(--on-mut); border-radius: 0.08em; animation: none; }
+  /* The window Vaxrank slides along the peptide: every 9-mer holding the mutation (starts 4 to 12), then the epitope. */
+  .seq .win {
+    position: absolute; inset: 0; grid-row: 2 / 3; grid-column: 8 / 17; z-index: 0;
+    background: var(--panel); border-radius: 0.1em;
+    animation: scan 3s step-end 0.5s both;
+  }
+  .seq .tag {
+    position: relative; grid-column: 8 / 17; margin-top: 0.7rem; padding-top: 0.45rem; border-top: 1.5px solid var(--navy);
+    text-align: center; white-space: nowrap; font-family: var(--sans); font-weight: 500; font-size: 0.85rem; color: var(--navy);
+    animation: appear 0.5s ease-out 3.4s backwards;
+  }
+  @keyframes scan {
+    0% { transform: translateX(-44.444%); }
+    8% { transform: translateX(-33.333%); }
+    16% { transform: translateX(-22.222%); }
+    24% { transform: translateX(-11.111%); }
+    32% { transform: translateX(0); }
+    40% { transform: translateX(11.111%); }
+    48% { transform: translateX(22.222%); }
+    56% { transform: translateX(33.333%); }
+    64% { transform: translateX(44.444%); }
+    82%, 100% { transform: translateX(0); }
+  }
+  @keyframes lock { from { color: var(--faint); font-weight: 300; } }
+  @keyframes appear { from { opacity: 0; } }
+  @media (prefers-reduced-motion: reduce) {
+    .seq .win, .seq .lig, .seq .tag { animation: none; }
+  }
 
   /* Sections */
-  section.block { padding: 4rem 0; border-top: 1px solid var(--rule); }
+  section.block { padding: 4.5rem 0; border-top: 1px solid var(--rule); }
+  section.block > .wrap { display: grid; gap: 1.5rem 3rem; }
+  .body { min-width: 0; }
+  .body > :first-child { margin-top: 0; }
 
   /* Pipeline diagram */
   .pipe { display: grid; grid-template-columns: 1fr; gap: 1.6rem; margin-top: 2rem; max-width: 22rem; }
@@ -127,12 +160,12 @@
   }
 
   /* Packages */
-  .pkgs { display: grid; grid-template-columns: 1fr; gap: 1rem; }
-  .pkg { border: 1px solid var(--rule); border-radius: 8px; padding: 1.25rem 1.25rem 1rem; display: flex; flex-direction: column; }
-  .pkg h4 { margin: 0 0 0.5rem; font-size: 1.15rem; }
+  .pkgs { display: grid; grid-template-columns: 1fr; gap: 2.25rem 3rem; }
+  .pkg { border-top: 1px solid var(--rule); padding-top: 1.1rem; display: flex; flex-direction: column; }
+  .pkg h4 { margin: 0 0 0.4rem; font-size: 1.35rem; font-weight: 700; letter-spacing: -0.02em; }
   .pkg h4 a { color: var(--navy); }
   .pkg p { font-size: 0.97rem; }
-  .pkg code.pip { display: block; margin-top: auto; padding: 0.45rem 0.7rem; background: var(--panel); border-radius: 4px; font-size: 0.85rem; color: var(--navy); }
+  .pkg code.pip { display: block; width: fit-content; margin-top: auto; padding: 0.45rem 0.7rem; background: var(--panel); border-radius: 4px; font-size: 0.85rem; color: var(--navy); }
   .pkg .links { display: flex; flex-wrap: wrap; gap: 0.25rem 1.1rem; margin: 0.8rem 0 0; font-size: 0.92rem; }
   .pkg.wide { grid-column: 1 / -1; }
 
@@ -190,10 +223,12 @@
     footer .cols { grid-template-columns: 2fr 1fr 1fr; }
   }
   @media (min-width: 60rem) {
-    .hero { grid-template-columns: 1fr 1.05fr; gap: 4rem; padding-top: 5rem; padding-bottom: 5rem; }
+    .hero { grid-template-columns: 1.25fr 1fr; padding-top: 5rem; padding-bottom: 5rem; }
     .pipe { grid-template-columns: repeat(6, 1fr); column-gap: 2rem; row-gap: 1.25rem; max-width: none; }
     .steps li:not(:last-child)::after { content: "→"; left: auto; bottom: auto; right: -1.45rem; top: 1.7rem; transform: translateY(-50%); }
-    .trial { grid-template-columns: 17rem 1fr; }
+    .trial { grid-template-columns: 15rem 1fr; }
+    section.block > .wrap { grid-template-columns: 12rem minmax(0, 1fr); }
+    section.block h2 { position: sticky; top: 5.5rem; align-self: start; }
   }
   @media (max-width: 40rem) {
     .topbar .wrap { gap: 1rem; }
@@ -210,7 +245,7 @@
 <header class="topbar">
   <div class="wrap">
     <a class="brand" href="#top" aria-label="OpenVax home">
-      <svg viewBox="0 0 32 16" aria-hidden="true"><path d="M4 8h24" stroke="currentColor" stroke-width="2"/><circle cx="4" cy="8" r="3.5" fill="currentColor"/><circle cx="28" cy="8" r="3.5" fill="currentColor"/><circle cx="16" cy="8" r="5" fill="#c2255c"/></svg>
+      <svg viewBox="0 0 32 16" aria-hidden="true"><path d="M4 8h24" stroke="currentColor" stroke-width="2"/><circle cx="4" cy="8" r="3.5" fill="currentColor"/><circle cx="28" cy="8" r="3.5" fill="currentColor"/><circle cx="16" cy="8" r="5" fill="#cc2266"/></svg>
       OpenVax
     </a>
     <nav aria-label="Sections">
@@ -227,27 +262,27 @@
 <main id="top">
 
 <section class="hero wrap">
+  <h1>Software for personalized cancer vaccines</h1>
   <div>
-    <h1>Software for personalized cancer vaccines</h1>
-    <p class="lede">OpenVax is a collection of open-source Python libraries and command-line tools for finding the mutations in a patient's tumor that T cells could recognize, and choosing which of them to put in a vaccine. Vaccines designed with these tools have been given to patients in clinical trials.</p>
+    <p class="lede">OpenVax is a collection of open-source Python libraries and command-line tools for finding the mutations in a patient's tumor that T cells could recognize, and choosing which of them to put in a vaccine. <a href="#trials">See which clinical trials have used OpenVax software.</a></p>
     <div class="install"><span class="prompt">$</span>pip install vaxrank</div>
     <p class="note">Maintained and developed by the <a href="https://pirl.unc.edu/">Personalized Immunotherapy Research Lab</a> at UNC Chapel Hill.</p>
   </div>
 
-  <figure class="peptide" aria-label="Example vaccine peptide spanning the KRAS G12D mutation">
+  <figure class="peptide" aria-label="Example vaccine peptide spanning the KRAS G12D mutation, with the HLA-A*11:01 epitope VVGADGVGK highlighted">
     <div class="seq" aria-hidden="true">
       <span class="n" style="grid-column:1">1</span><span class="n" style="grid-column:12">12</span><span class="n" style="grid-column:25">25</span>
+      <span class="win"></span>
       <span class="r">M</span><span class="r">T</span><span class="r">E</span><span class="r">Y</span><span class="r">K</span><span class="r">L</span><span class="r">V</span><span class="r lig">V</span><span class="r lig">V</span><span class="r lig">G</span><span class="r lig">A</span><span class="r lig mut">D</span><span class="r lig">G</span><span class="r lig">V</span><span class="r lig">G</span><span class="r lig">K</span><span class="r">S</span><span class="r">A</span><span class="r">L</span><span class="r">T</span><span class="r">I</span><span class="r">Q</span><span class="r">L</span><span class="r">I</span><span class="r">Q</span>
-      <span class="tag">HLA-A*11:01 epitope</span>
+      <span class="tag">HLA-A*11:01</span>
     </div>
-    <figcaption>A 25-residue vaccine peptide from KRAS spanning the G12D mutation (<b>magenta</b>). The underlined 9-mer, VVGADGVGK, is presented to T cells by HLA-A*11:01. Vaxrank picks peptides like this for each patient.</figcaption>
   </figure>
 </section>
 
 <section class="block" id="software">
   <div class="wrap">
     <h2>Software</h2>
-    <p class="prose">Each step below is a separate package that can be used on its own.</p>
+    <div class="body">
     <div class="pipe">
       <ol class="steps">
         <li class="io"><span class="node">Patient data</span><span class="cap">variants, tumor RNA, HLA type</span></li>
@@ -271,7 +306,7 @@
         <h4><a href="https://github.com/openvax/isovar">Isovar</a></h4>
         <p>Determines the mutant protein sequence the tumor expresses by assembling the RNA reads that cover each mutation, so nearby germline or somatic variants and splicing changes come from the reads rather than the reference genome.</p>
         <code class="pip">pip install isovar</code>
-        <p class="links"><a href="https://github.com/openvax/isovar">Source</a></p>
+        <p class="links"><a href="https://github.com/openvax/isovar/tree/master/docs">Documentation</a><a href="https://github.com/openvax/isovar">Source</a></p>
       </article>
       <article class="pkg" id="varcode">
         <h4><a href="https://github.com/openvax/varcode">Varcode</a></h4>
@@ -281,13 +316,13 @@
       </article>
       <article class="pkg" id="mhctools">
         <h4><a href="https://github.com/openvax/mhctools">mhctools</a></h4>
-        <p>One Python interface to many MHC binding, presentation, processing and immunogenicity predictors, including NetMHCpan, MHCflurry, MixMHCpred and BigMHC. Switching or comparing predictors is a one-line change.</p>
+        <p>One Python interface to many MHC binding, presentation, processing and immunogenicity predictors, including NetMHCpan, MHCflurry, MixMHCpred and BigMHC.</p>
         <code class="pip">pip install mhctools</code>
         <p class="links"><a href="https://openvax.github.io/mhctools/">Documentation</a><a href="https://github.com/openvax/mhctools">Source</a></p>
       </article>
       <article class="pkg" id="mhcflurry">
         <h4><a href="https://github.com/openvax/mhcflurry">MHCflurry</a></h4>
-        <p>Predicts which peptides MHC class I molecules present, with pretrained models for binding affinity, antigen processing and presentation. Runs from the command line or Python and can be retrained on new data.</p>
+        <p>Predicts which peptides MHC class I molecules present, with pretrained models for binding affinity, antigen processing and presentation.</p>
         <code class="pip">pip install mhcflurry</code>
         <p class="links"><a href="https://openvax.github.io/mhcflurry/">Documentation</a><a href="https://github.com/openvax/mhcflurry">Source</a><a href="https://doi.org/10.1016/j.cels.2018.05.014">Paper (2018)</a><a href="https://doi.org/10.1016/j.cels.2020.06.010">MHCflurry 2.0 paper (2020)</a><a href="https://doi.org/10.1007/978-1-0716-0327-7_8">Book chapter (2020)</a></p>
       </article>
@@ -300,7 +335,7 @@
       <article class="pkg wide" id="pipeline">
         <h4><a href="https://github.com/openvax/neoantigen-vaccine-pipeline">neoantigen-vaccine-pipeline</a></h4>
         <p>The end-to-end OpenVax v1 workflow used in the Mount Sinai trials: aligns tumor and normal sequencing reads, calls somatic variants and runs Vaxrank. Packaged with Snakemake and Docker.</p>
-        <p class="links"><a href="https://github.com/openvax/neoantigen-vaccine-pipeline">Source</a><a href="https://doi.org/10.3389/fimmu.2017.01807">Paper (2018)</a><a href="https://doi.org/10.1007/978-1-0716-0327-7_10">Book chapter (2020)</a></p>
+        <p class="links"><a href="https://github.com/openvax/neoantigen-vaccine-pipeline#readme">Documentation</a><a href="https://github.com/openvax/neoantigen-vaccine-pipeline">Source</a><a href="https://doi.org/10.3389/fimmu.2017.01807">Paper (2018)</a><a href="https://doi.org/10.1007/978-1-0716-0327-7_10">Book chapter (2020)</a></p>
       </article>
     </div>
 
@@ -310,23 +345,27 @@
         <h4><a href="https://github.com/openvax/pyensembl">PyEnsembl</a></h4>
         <p>Local access to Ensembl genome annotation (genes, transcripts, exons and their sequences) for human and many other species.</p>
         <code class="pip">pip install pyensembl</code>
+        <p class="links"><a href="https://openvax.github.io/pyensembl/">Documentation</a><a href="https://github.com/openvax/pyensembl">Source</a></p>
       </article>
       <article class="pkg" id="mhcgnomes">
         <h4><a href="https://github.com/pirl-unc/mhcgnomes">mhcgnomes</a></h4>
         <p>Parses MHC allele names as written in IEDB, IMGT/HLA, IPD-MHC and NetMHCpan, for humans and other species, into one standard form. mhctools and MHCflurry use it to normalize allele names.</p>
         <code class="pip">pip install mhcgnomes</code>
-        <p class="links"><a href="https://pirl-unc.github.io/mhcgnomes/">Documentation</a><a href="https://github.com/pirl-unc/mhcgnomes">Source</a></p>
+        <p class="links"><a href="https://pirl.unc.edu/mhcgnomes/">Documentation</a><a href="https://github.com/pirl-unc/mhcgnomes">Source</a></p>
       </article>
       <article class="pkg" id="gtfparse">
         <h4><a href="https://github.com/openvax/gtfparse">gtfparse</a></h4>
         <p>Fast parsing of GTF gene annotation files into data frames.</p>
         <code class="pip">pip install gtfparse</code>
+        <p class="links"><a href="https://github.com/openvax/gtfparse/blob/master/docs/index.md">Documentation</a><a href="https://github.com/openvax/gtfparse">Source</a></p>
       </article>
       <article class="pkg" id="datacache">
         <h4><a href="https://github.com/openvax/datacache">datacache</a></h4>
         <p>Downloads, checks and caches the reference data that PyEnsembl and other packages use.</p>
         <code class="pip">pip install datacache</code>
+        <p class="links"><a href="https://openvax.github.io/datacache/">Documentation</a><a href="https://github.com/openvax/datacache">Source</a></p>
       </article>
+    </div>
     </div>
   </div>
 </section>
@@ -334,6 +373,7 @@
 <section class="block" id="tutorial">
   <div class="wrap">
     <h2>Tutorial</h2>
+    <div class="body">
     <div class="prose">
       <p>The <a href="https://github.com/openvax/neoantigen-vaccine-pipeline">neoantigen-vaccine-pipeline</a> runs everything from raw sequencing reads to ranked vaccine peptides inside one Docker image. The image contains OpenVax v1, the version used to design the vaccines in the PGV-001 trials; OpenVax v2 is under active development. You need tumor and normal whole-exome sequencing and tumor RNA-seq as gzipped FASTQ files, the patient's MHC class I alleles, and a machine with at least 16 cores. No cluster is required.</p>
     </div>
@@ -380,12 +420,14 @@ docker run -it \
       <p>To call somatic variants only, leave the tumor RNA and HLA alleles out of the config and the pipeline writes Mutect and Strelka VCFs instead (<a href="https://github.com/openvax/neoantigen-vaccine-pipeline/blob/master/test/idh1_config_dna_only.yaml">example config</a>). Intermediate outputs and other options are described in the <a href="https://github.com/openvax/neoantigen-vaccine-pipeline#readme">pipeline README</a>.</p>
       <p class="muted">Adapted from a 2020 post by Julia Kodysh.</p>
     </div>
+    </div>
   </div>
 </section>
 
 <section class="block" id="trials">
   <div class="wrap">
     <h2>Clinical trials</h2>
+    <div class="body">
     <p class="prose">Four trials at Mount Sinai have tested <b>PGV-001</b>, a personalized vaccine of up to 10 synthetic long peptides per patient, chosen by the OpenVax pipeline and given with the adjuvant <a href="https://www.oncovir.com/science">poly-ICLC</a>.</p>
 
     <h3>Mount Sinai</h3>
@@ -454,12 +496,14 @@ docker run -it \
         </div>
       </article>
     </div>
+    </div>
   </div>
 </section>
 
 <section class="block" id="papers">
   <div class="wrap">
     <h2>Papers</h2>
+    <div class="body">
     <h3 style="margin-top:0">Software and methods</h3>
     <ul class="refs">
       <li><span class="title"><a href="https://doi.org/10.1101/054775">Predicting peptide-MHC binding affinities with imputed training data</a></span><br><span class="src">Rubinsteyn, O'Donnell, Damaraju &amp; Hammerbacher. <i>bioRxiv</i>, 2016.</span></li>
@@ -477,18 +521,27 @@ docker run -it \
       <li><span class="title"><a href="https://doi.org/10.1038/s43018-025-00966-7">Atezolizumab plus personalized neoantigen vaccination in urothelial cancer: a phase 1 trial</a></span><br><span class="src">Saxena, Anker, Kodysh et al. <i>Nature Cancer</i>, 2025. Trial <a href="https://clinicaltrials.gov/study/NCT03359239">NCT03359239</a></span></li>
       <li><span class="title"><a href="https://doi.org/10.1126/sciadv.adz1156">Healthy donor T cell receptors expand functional neoantigen recognition beyond patient vaccination</a></span><br><span class="src">Teo et al. <i>Science Advances</i>, 2026. Trial <a href="https://clinicaltrials.gov/study/NCT04912765">NCT04912765</a></span></li>
     </ul>
+    </div>
   </div>
 </section>
 
 <section class="block" id="history">
   <div class="wrap">
     <h2>History</h2>
+    <div class="body">
     <div class="prose">
       <p>OpenVax started in <a href="https://web.archive.org/web/20170604013230/http://www.hammerlab.org/">Hammer Lab</a>, Jeff Hammerbacher's lab at <a href="https://icahn.mssm.edu/">Mount Sinai</a>, where the first of these libraries were written. The group then built the OpenVax pipeline to select vaccine targets for <a href="https://profiles.mountsinai.org/nina-bhardwaj">Nina Bhardwaj</a>'s <a href="https://labs.icahn.mssm.edu/saxenalab/">Vaccine and Cell Therapy Lab</a>, and for several years was its own small research group within Mount Sinai.</p>
       <p>The group has since wound down. Mount Sinai still uses the software to design vaccines, and development continues at <a href="https://pirl.unc.edu/">PIRL</a> at UNC Chapel Hill.</p>
     </div>
 
-    <h2 id="people" style="margin-top:3.5rem">People</h2>
+    </div>
+  </div>
+</section>
+
+<section class="block" id="people">
+  <div class="wrap">
+    <h2>People</h2>
+    <div class="body">
     <div class="people">
       <div class="person"><h4><a href="https://unclineberger.org/directory/alex-rubinsteyn/">Alex Rubinsteyn</a></h4><p>Wrote most of the OpenVax libraries and still maintains them. Faculty in <a href="https://www.med.unc.edu/genetics/">Genetics</a> and <a href="https://www.med.unc.edu/compmed/">Computational Medicine</a> at UNC Chapel Hill and a member of the <a href="https://unclineberger.org/">UNC Lineberger Comprehensive Cancer Center</a>. Co-leads the <a href="https://pirl.unc.edu/">Personalized Immunotherapy Research Lab</a>.</p></div>
       <div class="person"><h4><a href="https://github.com/julia326">Julia Kodysh</a></h4><p>Built the <a href="https://github.com/openvax/neoantigen-vaccine-pipeline">vaccine pipeline</a> used in the Mount Sinai trials and still works on it. Works at <a href="https://www.freenome.com/">Freenome</a>.</p></div>
@@ -503,6 +556,7 @@ docker run -it \
       <div class="person"><h4><a href="https://isaachodes.io/">Isaac Hodes</a></h4><p>Worked on the first version of the PGV trial pipeline. Now at <a href="https://openathena.ai/">Open Athena</a>.</p></div>
     </div>
     <p class="muted" style="margin-top:1.5rem">Other contributors include Arun Ahuja, Arman Aksoy, Seb Mondet and Walid Ahmad.</p>
+    </div>
   </div>
 </section>
 
