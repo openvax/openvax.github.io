@@ -1,0 +1,16 @@
+---
+layout: default
+title: Blog
+---
+<section class="post-index wrap">
+  <h1>Blog</h1>
+  <ol class="post-list">
+    {% for post in site.posts %}
+    <li>
+      <h2><a href="{{ post.url }}">{{ post.title }}</a></h2>
+      <p class="byline">{% if post.author %}{{ post.author }}, {% endif %}<time datetime="{{ post.date | date_to_xmlschema }}">{{ post.date | date: "%B %-d, %Y" }}</time></p>
+      <p>{{ post.subtitle | default: post.excerpt | strip_html | normalize_whitespace | truncatewords: 40 }}</p>
+    </li>
+    {% endfor %}
+  </ol>
+</section>

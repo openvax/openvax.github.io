@@ -9,236 +9,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Martian+Mono:wdth,wght@75..112.5,300..600&family=Schibsted+Grotesk:ital,wght@0,400..800;1,400..800&display=swap" rel="stylesheet">
-<style>
-  :root {
-    --navy: #221d55;
-    --ink: #2f2b55;
-    --muted: #69658e;
-    --teal: #3d36a0;
-    --mut: #cc2266;
-    --paper: #fcfbff;
-    --panel: #f0eef8;
-    --rule: #e2dff0;
-    --faint: #c9c5df;
-    --on-mut: #ffffff;
-    --sans: "Schibsted Grotesk", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-    --mono: "Martian Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
-    --wide: 72rem;
-  }
-  @media (prefers-color-scheme: dark) {
-    :root {
-      --navy: #ece9ff;
-      --ink: #d6d2f0;
-      --muted: #9d98c2;
-      --teal: #aea8ff;
-      --mut: #ff5c97;
-      --paper: #13112a;
-      --panel: #1d1a3b;
-      --rule: #2c2852;
-      --faint: #3e3a66;
-      --on-mut: #1c0a17;
-    }
-  }
-
-  * { box-sizing: border-box; }
-  html { scroll-padding-top: 4.5rem; }
-  body {
-    margin: 0;
-    background: var(--paper);
-    color: var(--ink);
-    font: 400 1.0625rem/1.6 var(--sans);
-    -webkit-font-smoothing: antialiased;
-  }
-  a { color: var(--teal); text-decoration: none; }
-  a:hover { text-decoration: underline; text-underline-offset: 0.15em; }
-  p:not(.meta):not(.links) a {
-    text-decoration: underline; text-underline-offset: 0.18em; text-decoration-thickness: 1px;
-    text-decoration-color: color-mix(in srgb, var(--teal) 40%, transparent);
-  }
-  p:not(.meta):not(.links) a:hover { text-decoration-color: currentColor; }
-  a:focus-visible { outline: 2px solid var(--teal); outline-offset: 2px; border-radius: 2px; }
-  code { font-family: var(--mono); font-size: 0.84em; font-stretch: 87.5%; }
-  h1, h2, h3, h4 { color: var(--navy); font-weight: 600; line-height: 1.2; }
-  h2 { font-size: 1.9rem; font-weight: 700; letter-spacing: -0.025em; line-height: 1.1; margin: 0; }
-  h3 { font-size: 1.125rem; margin: 2.5rem 0 1rem; }
-  p { margin: 0 0 1rem; }
-  .wrap { max-width: var(--wide); margin: 0 auto; padding: 0 1.5rem; }
-  .prose { max-width: 42rem; }
-  .muted { color: var(--muted); }
-
-  /* Top bar */
-  .topbar {
-    position: sticky; top: 0; z-index: 10;
-    background: var(--paper);
-    border-bottom: 1px solid var(--rule);
-  }
-  .topbar .wrap { display: flex; align-items: center; gap: 2rem; height: 3.75rem; }
-  .brand { display: flex; align-items: center; gap: 0.6rem; color: var(--navy); font-weight: 600; font-size: 1.2rem; }
-  .brand:hover { text-decoration: none; }
-  .brand svg { width: 2rem; height: 1rem; }
-  .topbar nav { display: flex; gap: 1.5rem; margin-left: auto; align-items: center; }
-  .topbar nav a { color: var(--ink); font-size: 0.95rem; }
-  .topbar nav a:hover { color: var(--teal); text-decoration: none; }
-  .topbar .gh svg { width: 1.3rem; height: 1.3rem; display: block; fill: currentColor; }
-
-  /* Hero */
-  .hero { display: grid; grid-template-columns: 1fr; gap: 1.5rem 4rem; padding-top: 4rem; padding-bottom: 4rem; align-items: end; }
-  .hero h1 { font-size: clamp(2.6rem, 6vw, 4.75rem); font-weight: 700; line-height: 0.98; letter-spacing: -0.035em; margin: 0; }
-  .lede { font-size: 1.125rem; color: var(--ink); max-width: 34rem; }
-  .install {
-    display: inline-block; margin: 0.5rem 0 1.5rem;
-    background: var(--panel); border: 1px solid var(--rule); border-radius: 6px;
-    padding: 0.55rem 0.95rem; font-family: var(--mono); font-stretch: 87.5%; font-size: 0.88rem; color: var(--navy);
-  }
-  .install .prompt { color: var(--muted); user-select: none; margin-right: 0.6em; }
-  .hero .note { color: var(--muted); font-size: 0.95rem; max-width: 34rem; }
-
-  /* The peptide */
-  .peptide { grid-column: 1 / -1; margin: 3rem 0 0; }
-  .seq {
-    position: relative;
-    display: grid; grid-template-columns: repeat(25, minmax(0, 1fr));
-    font-family: var(--mono); font-stretch: 87.5%; font-weight: 300; text-align: center; line-height: 1;
-    font-size: clamp(0.95rem, 4.7vw, 3rem); max-width: 17.75em; color: var(--faint);
-  }
-  .seq .n { font-family: var(--sans); font-size: 0.75rem; color: var(--muted); padding-bottom: 0.6rem; }
-  .seq .r { position: relative; z-index: 1; padding: 0.22em 0; }
-  .seq .lig { color: var(--navy); font-weight: 500; animation: lock 0.5s ease-out 3.4s backwards; }
-  .seq .mut { background: var(--mut); color: var(--on-mut); border-radius: 0.08em; animation: none; }
-  /* The window Vaxrank slides along the peptide: every 9-mer holding the mutation (starts 4 to 12), then the epitope. */
-  .seq .win {
-    position: absolute; inset: 0; grid-row: 2 / 3; grid-column: 8 / 17; z-index: 0;
-    background: var(--panel); border-radius: 0.1em;
-    animation: scan 3s step-end 0.5s both;
-  }
-  .seq .tag {
-    position: relative; grid-column: 8 / 17; margin-top: 0.7rem; padding-top: 0.45rem; border-top: 1.5px solid var(--navy);
-    text-align: center; white-space: nowrap; font-family: var(--sans); font-weight: 500; font-size: 0.85rem; color: var(--navy);
-    animation: appear 0.5s ease-out 3.4s backwards;
-  }
-  @keyframes scan {
-    0% { transform: translateX(-44.444%); }
-    8% { transform: translateX(-33.333%); }
-    16% { transform: translateX(-22.222%); }
-    24% { transform: translateX(-11.111%); }
-    32% { transform: translateX(0); }
-    40% { transform: translateX(11.111%); }
-    48% { transform: translateX(22.222%); }
-    56% { transform: translateX(33.333%); }
-    64% { transform: translateX(44.444%); }
-    82%, 100% { transform: translateX(0); }
-  }
-  @keyframes lock { from { color: var(--faint); font-weight: 300; } }
-  @keyframes appear { from { opacity: 0; } }
-  @media (prefers-reduced-motion: reduce) {
-    .seq .win, .seq .lig, .seq .tag { animation: none; }
-  }
-
-  /* Sections */
-  section.block { padding: 4.5rem 0; border-top: 1px solid var(--rule); }
-  section.block > .wrap { display: grid; gap: 1.5rem 3rem; }
-  .body { min-width: 0; }
-  .body > :first-child { margin-top: 0; }
-
-  /* Pipeline diagram */
-  .pipe { display: grid; grid-template-columns: 1fr; gap: 1.6rem; margin-top: 2rem; max-width: 22rem; }
-  .steps { display: contents; list-style: none; }
-  .steps li { position: relative; display: flex; flex-direction: column; align-items: center; text-align: center; }
-  .node {
-    display: flex; flex-direction: column; align-items: center; justify-content: center;
-    width: 100%; min-height: 3.4rem; padding: 0.5rem 0.75rem;
-    border: 1.5px solid var(--teal); border-radius: 6px;
-    font-weight: 600; color: var(--teal); line-height: 1.25;
-  }
-  a.node:hover, .node a:hover { text-decoration: none; background: color-mix(in srgb, var(--teal) 8%, transparent); }
-  .node a { color: var(--teal); padding: 0 0.25rem; border-radius: 3px; }
-  .io .node { border: 0; background: var(--panel); color: var(--navy); font-weight: 500; }
-  .cap { display: block; margin-top: 0.45rem; font-size: 0.85rem; color: var(--muted); line-height: 1.35; }
-  .steps li:not(:last-child)::after {
-    content: "↓"; position: absolute; left: 50%; bottom: -1.5rem; transform: translateX(-50%);
-    color: var(--muted); font-size: 0.95rem;
-  }
-
-  /* Packages */
-  .pkgs { display: grid; grid-template-columns: 1fr; gap: 2.25rem 3rem; }
-  .pkg { border-top: 1px solid var(--rule); padding-top: 1.1rem; display: flex; flex-direction: column; }
-  .pkg h4 { margin: 0 0 0.4rem; font-size: 1.35rem; font-weight: 700; letter-spacing: -0.02em; }
-  .pkg h4 a { color: var(--navy); }
-  .pkg p { font-size: 0.97rem; }
-  .pkg code.pip { display: block; width: fit-content; margin-top: auto; padding: 0.45rem 0.7rem; background: var(--panel); border-radius: 4px; font-size: 0.85rem; color: var(--navy); }
-  .pkg .links { display: flex; flex-wrap: wrap; gap: 0.25rem 1.1rem; margin: 0.8rem 0 0; font-size: 0.92rem; }
-  .pkg.wide { grid-column: 1 / -1; }
-
-  /* Tutorial */
-  .howto { list-style: none; counter-reset: step; margin: 2rem 0 1.5rem; padding: 0; max-width: 52rem; }
-  .howto > li { counter-increment: step; position: relative; padding-left: 2.5rem; margin-bottom: 2rem; }
-  .howto > li::before {
-    content: counter(step); position: absolute; left: 0; top: 0.05rem;
-    width: 1.6rem; height: 1.6rem; border-radius: 50%; border: 1.5px solid var(--teal);
-    color: var(--teal); font-size: 0.85rem; font-weight: 600; display: grid; place-items: center;
-  }
-  .howto h4 { margin: 0 0 0.5rem; font-size: 1.05rem; }
-  .howto p { max-width: 44rem; }
-  pre { margin: 0.75rem 0 1rem; padding: 0.9rem 1rem; background: var(--panel); border-radius: 6px; overflow-x: auto; font-size: 0.85rem; line-height: 1.55; }
-  pre code { font-size: inherit; color: var(--navy); }
-  p code { white-space: nowrap; }
-
-  /* Trials */
-  .trials { border-top: 1px solid var(--rule); }
-  .trial { display: grid; grid-template-columns: 1fr; gap: 0.75rem 2.5rem; padding: 1.75rem 0; border-bottom: 1px solid var(--rule); }
-  .trial h4 { margin: 0 0 0.4rem; font-size: 1.1rem; }
-  .trial .meta { font-size: 0.92rem; color: var(--muted); margin: 0; line-height: 1.7; }
-  .trial .meta a.nct { font-family: var(--mono); font-size: 0.88rem; }
-  .status { display: inline-block; font-size: 0.8rem; font-weight: 500; padding: 0.05rem 0.55rem; border-radius: 999px; margin-left: 0.4rem; white-space: nowrap; }
-  .status.done { background: color-mix(in srgb, var(--navy) 10%, transparent); color: var(--navy); }
-  .status.active { background: color-mix(in srgb, #e67700 16%, transparent); color: #a35400; }
-  .status.open { background: color-mix(in srgb, var(--teal) 16%, transparent); color: var(--teal); }
-  @media (prefers-color-scheme: dark) { .status.active { color: #ffb15c; } }
-  .trial-body p { margin-bottom: 0.75rem; }
-  .pubs { list-style: none; margin: 0; padding: 0; font-size: 0.95rem; }
-  .pubs li { margin: 0.35rem 0; padding-left: 5.5rem; text-indent: -5.5rem; }
-  .kind { display: inline-block; width: 5.5rem; text-indent: 0; font-size: 0.85rem; color: var(--muted); }
-
-  /* Papers */
-  .refs { list-style: none; margin: 0; padding: 0; max-width: 52rem; }
-  .refs li { margin: 0 0 1.1rem; }
-  .refs .title { font-weight: 500; }
-  .refs .src { color: var(--muted); font-size: 0.95rem; }
-
-  /* People */
-  .people { display: grid; grid-template-columns: 1fr; gap: 1.5rem 3rem; margin-top: 1.5rem; }
-  .person h4 { margin: 0 0 0.25rem; font-size: 1.05rem; }
-  .person p { margin: 0; font-size: 0.97rem; }
-
-  /* Footer */
-  footer { background: var(--panel); border-top: 1px solid var(--rule); padding: 2.5rem 0 3rem; font-size: 0.92rem; color: var(--muted); }
-  footer .cols { display: grid; grid-template-columns: 1fr; gap: 1.5rem 3rem; }
-  footer h5 { margin: 0 0 0.5rem; font-size: 0.92rem; color: var(--navy); font-weight: 600; }
-  footer ul { list-style: none; margin: 0; padding: 0; }
-  footer li { margin: 0.2rem 0; }
-
-  @media (min-width: 40rem) {
-    .pkgs { grid-template-columns: 1fr 1fr; }
-    .people { grid-template-columns: 1fr 1fr; }
-    footer .cols { grid-template-columns: 2fr 1fr 1fr; }
-  }
-  @media (min-width: 60rem) {
-    .hero { grid-template-columns: 1.25fr 1fr; padding-top: 5rem; padding-bottom: 5rem; }
-    .pipe { grid-template-columns: repeat(6, 1fr); column-gap: 2rem; row-gap: 1.25rem; max-width: none; }
-    .steps li:not(:last-child)::after { content: "→"; left: auto; bottom: auto; right: -1.45rem; top: 1.7rem; transform: translateY(-50%); }
-    .trial { grid-template-columns: 15rem 1fr; }
-    section.block > .wrap { grid-template-columns: 12rem minmax(0, 1fr); }
-    section.block h2 { position: sticky; top: 5.5rem; align-self: start; }
-  }
-  @media (max-width: 40rem) {
-    .topbar .wrap { gap: 1rem; }
-    .topbar nav { gap: 1rem; }
-    .topbar nav .optional { display: none; }
-    .wrap { padding: 0 1rem; }
-    .hero { padding-top: 2.5rem; padding-bottom: 3rem; }
-    section.block { padding: 3rem 0; }
-  }
-</style>
+<link rel="stylesheet" href="assets/site.css">
 </head>
 <body>
 
@@ -252,8 +23,9 @@
       <a href="#software">Software</a>
       <a class="optional" href="#tutorial">Tutorial</a>
       <a href="#trials">Trials</a>
-      <a href="#papers">Papers</a>
+      <a class="optional" href="#papers">Papers</a>
       <a class="optional" href="#people">People</a>
+      <a href="/blog/">Blog</a>
       <a class="gh" href="https://github.com/openvax" aria-label="OpenVax on GitHub"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg></a>
     </nav>
   </div>
@@ -418,7 +190,7 @@ docker run -it \
     </ol>
     <div class="prose">
       <p>To call somatic variants only, leave the tumor RNA and HLA alleles out of the config and the pipeline writes Mutect and Strelka VCFs instead (<a href="https://github.com/openvax/neoantigen-vaccine-pipeline/blob/master/test/idh1_config_dna_only.yaml">example config</a>). Intermediate outputs and other options are described in the <a href="https://github.com/openvax/neoantigen-vaccine-pipeline#readme">pipeline README</a>.</p>
-      <p class="muted">Adapted from a 2020 post by Julia Kodysh.</p>
+      <p class="muted">Adapted from a <a href="/blog/openvax-neoantigen-prediction-pipeline-a-tutorial">2020 post by Julia Kodysh</a>.</p>
     </div>
     </div>
   </div>
