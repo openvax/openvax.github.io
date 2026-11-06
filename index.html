@@ -134,9 +134,7 @@
   .pkg p { font-size: 0.97rem; }
   .pkg code.pip { display: block; margin-top: auto; padding: 0.45rem 0.7rem; background: var(--panel); border-radius: 4px; font-size: 0.85rem; color: var(--navy); }
   .pkg .links { display: flex; flex-wrap: wrap; gap: 0.25rem 1.1rem; margin: 0.8rem 0 0; font-size: 0.92rem; }
-  .pkgs.small .pkg p { margin-bottom: 0.75rem; }
   .pkg.wide { grid-column: 1 / -1; }
-  .utils { max-width: 52rem; }
 
   /* Tutorial */
   .howto { list-style: none; counter-reset: step; margin: 2rem 0 1.5rem; padding: 0; max-width: 52rem; }
@@ -188,7 +186,6 @@
 
   @media (min-width: 40rem) {
     .pkgs { grid-template-columns: 1fr 1fr; }
-    .pkgs.small { grid-template-columns: repeat(3, 1fr); }
     .people { grid-template-columns: 1fr 1fr; }
     footer .cols { grid-template-columns: 2fr 1fr 1fr; }
   }
@@ -234,7 +231,7 @@
     <h1>Software for personalized cancer vaccines</h1>
     <p class="lede">OpenVax is a collection of open-source Python libraries and command-line tools for finding the mutations in a patient's tumor that T cells could recognize, and choosing which of them to put in a vaccine. Vaccines designed with these tools have been given to patients in clinical trials.</p>
     <div class="install"><span class="prompt">$</span>pip install vaxrank</div>
-    <p class="note">The libraries are maintained at the <a href="https://pirl.unc.edu/">Personalized Immunotherapy Research Lab (PIRL)</a> at UNC Chapel Hill.</p>
+    <p class="note">Maintained and developed by the <a href="https://pirl.unc.edu/">Personalized Immunotherapy Research Lab</a> at UNC Chapel Hill.</p>
   </div>
 
   <figure class="peptide" aria-label="Example vaccine peptide spanning the KRAS G12D mutation">
@@ -302,17 +299,23 @@
       </article>
       <article class="pkg wide" id="pipeline">
         <h4><a href="https://github.com/openvax/neoantigen-vaccine-pipeline">neoantigen-vaccine-pipeline</a></h4>
-        <p>The end-to-end workflow used in the Mount Sinai trials: aligns tumor and normal sequencing reads, calls somatic variants and runs Vaxrank. Packaged with Snakemake and Docker.</p>
+        <p>The end-to-end OpenVax v1 workflow used in the Mount Sinai trials: aligns tumor and normal sequencing reads, calls somatic variants and runs Vaxrank. Packaged with Snakemake and Docker.</p>
         <p class="links"><a href="https://github.com/openvax/neoantigen-vaccine-pipeline">Source</a><a href="https://doi.org/10.3389/fimmu.2017.01807">Paper (2018)</a><a href="https://doi.org/10.1007/978-1-0716-0327-7_10">Book chapter (2020)</a></p>
       </article>
     </div>
 
-    <h3>Genome reference</h3>
-    <div class="pkgs small">
+    <h3>Genome and MHC reference</h3>
+    <div class="pkgs">
       <article class="pkg" id="pyensembl">
         <h4><a href="https://github.com/openvax/pyensembl">PyEnsembl</a></h4>
         <p>Local access to Ensembl genome annotation (genes, transcripts, exons and their sequences) for human and many other species.</p>
         <code class="pip">pip install pyensembl</code>
+      </article>
+      <article class="pkg" id="mhcgnomes">
+        <h4><a href="https://github.com/pirl-unc/mhcgnomes">mhcgnomes</a></h4>
+        <p>Parses MHC allele names as written in IEDB, IMGT/HLA, IPD-MHC and NetMHCpan, for humans and other species, into one standard form. mhctools and MHCflurry use it to normalize allele names.</p>
+        <code class="pip">pip install mhcgnomes</code>
+        <p class="links"><a href="https://pirl-unc.github.io/mhcgnomes/">Documentation</a><a href="https://github.com/pirl-unc/mhcgnomes">Source</a></p>
       </article>
       <article class="pkg" id="gtfparse">
         <h4><a href="https://github.com/openvax/gtfparse">gtfparse</a></h4>
@@ -325,15 +328,6 @@
         <code class="pip">pip install datacache</code>
       </article>
     </div>
-
-    <h3>Smaller utilities</h3>
-    <p class="utils">
-      <a href="https://github.com/openvax/varlens">varlens</a> (command-line tools for variants and reads),
-      <a href="https://github.com/openvax/pepdata">pepdata</a> (IEDB data and amino acid properties),
-      <a href="https://github.com/pirl-unc/mhcgnomes">mhcgnomes</a> (parses MHC allele names),
-      <a href="https://github.com/openvax/sercol">sercol</a> and
-      <a href="https://github.com/openvax/serializable">serializable</a> (shared base classes).
-    </p>
   </div>
 </section>
 
@@ -341,7 +335,7 @@
   <div class="wrap">
     <h2>Tutorial</h2>
     <div class="prose">
-      <p>The <a href="https://github.com/openvax/neoantigen-vaccine-pipeline">neoantigen-vaccine-pipeline</a> runs everything from raw sequencing reads to ranked vaccine peptides inside one Docker image. You need tumor and normal whole-exome sequencing and tumor RNA-seq as gzipped FASTQ files, the patient's MHC class I alleles, and a machine with at least 16 cores. No cluster is required.</p>
+      <p>The <a href="https://github.com/openvax/neoantigen-vaccine-pipeline">neoantigen-vaccine-pipeline</a> runs everything from raw sequencing reads to ranked vaccine peptides inside one Docker image. The image contains OpenVax v1, the version used to design the vaccines in the PGV-001 trials; OpenVax v2 is under active development. You need tumor and normal whole-exome sequencing and tumor RNA-seq as gzipped FASTQ files, the patient's MHC class I alleles, and a machine with at least 16 cores. No cluster is required.</p>
     </div>
     <ol class="howto">
       <li>
