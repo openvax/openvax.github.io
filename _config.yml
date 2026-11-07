@@ -2,7 +2,7 @@
 # so Jekyll copies it unchanged; only the blog uses layouts.
 title: OpenVax
 description: Open-source software for personalized cancer vaccines.
-url: https://openvax.org
+url: https://www.openvax.org
 baseurl: ""
 timezone: America/New_York
 
