@@ -6,7 +6,7 @@ permalink: /v1-tutorial/
 <article class="post wrap">
   <header class="post-head">
     <h1>OpenVax v1 pipeline tutorial</h1>
-    <p class="post-sub">OpenVax v1 is the version used to design the vaccines in the PGV-001 trials. OpenVax v2 is under active development.</p>
+    <p class="post-sub">OpenVax v1 is the pipeline used in earlier PGV-001 clinical trials. It still receives occasional maintenance fixes for ongoing use, while new development is focused on OpenVax v2 rather than this workflow.</p>
   </header>
   <div class="post-body">
       <p>The <a href="https://github.com/openvax/neoantigen-vaccine-pipeline">neoantigen-vaccine-pipeline</a> runs everything from raw sequencing reads to ranked vaccine peptides inside one Docker image. You need tumor and normal whole-exome sequencing and tumor RNA-seq as gzipped FASTQ files, the patient's MHC class I alleles, and a machine with at least 16 cores. No cluster is required.</p>
@@ -29,7 +29,7 @@ chmod -R a+w grch38</code></pre>
       </li>
       <li>
         <h4>Write a config</h4>
-        <p>A YAML file in <code>/inputs</code> lists the sample's files, up to six MHC class I alleles (each must be supported by NetMHCpan) and tool settings. Paths are relative to the mounted directories. Start from the <a href="https://github.com/openvax/neoantigen-vaccine-pipeline/blob/master/test/idh1_config_grch38.yaml">example config</a>. Paired-end reads use <code>r1</code> and <code>r2</code> entries with <code>type: paired-end</code>; data from several lanes goes in separate fragments with distinct <code>fragment_id</code> values.</p>
+        <p>A YAML file in <code>/inputs</code> lists the sample's files, up to six MHC class I alleles (each must be supported by the configured predictor, such as MHCflurry in the example configs) and tool settings. Paths are relative to the mounted directories. Start from the <a href="https://github.com/openvax/neoantigen-vaccine-pipeline/blob/master/test/idh1_config_grch38.yaml">example config</a>. Paired-end reads use <code>r1</code> and <code>r2</code> entries with <code>type: paired-end</code>; data from several lanes goes in separate fragments with distinct <code>fragment_id</code> values.</p>
       </li>
       <li>
         <h4>Run the test case</h4>
